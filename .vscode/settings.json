@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\alui1\\Documents\\Qt\\a8-sprite-editor-f21-ike091\\icons\\org.json.jar\\org.json.jar"
+    ]
+}

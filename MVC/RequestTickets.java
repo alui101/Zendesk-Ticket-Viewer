@@ -10,7 +10,7 @@ import java.net.URI;
 
 /**
  * ****************************** Model ************************************
- * Handles connecting to the api and getting the JSON
+ * Handles connecting to the api/user's account and getting the tickets
  */
 public class RequestTickets {
 
@@ -18,12 +18,8 @@ public class RequestTickets {
     private String oAuthtoken = "ca9d6e6994f34142724aba4232bf9b4ec0ac26fa48aa7df5d29c81486bb3fb60";
     private String subdomain = "zccahass";
 
-    // Keeps track of errors
-    public String error = "none";
-
     /**
-     * 
-     * @return all the tickets for the user's account
+     * @return returns all the tickets for the user's account
      */
     public JSONObject getAllTickets() {
         HttpClient client = HttpClient.newHttpClient();
@@ -46,10 +42,10 @@ public class RequestTickets {
                 else
                     tickets = null;
             } catch (JSONException e) {
-                error = "Unable to store Json String receieved from request into a JSONObject";
+                System.out.println("Unable to store Json String receieved from request into a JSONObject");
             }
         } catch (IOException | InterruptedException e) {
-            error = "Error occured during reading the data or thread is interrupted";
+            System.out.println("Error occured during reading the data or thread is interrupted");
         }
         return tickets;
     }
@@ -80,10 +76,10 @@ public class RequestTickets {
                 else
                     tickets = null;
             } catch (JSONException e) {
-                e.printStackTrace();
+                System.out.println("Unable to store Json String receieved from request into a JSONObject");
             }
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Error occured during reading data or thread is interrupted");
         }
         return tickets;
     }

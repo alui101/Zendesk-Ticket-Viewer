@@ -15,8 +15,8 @@ import java.net.URI;
 public class RequestTickets {
 
     // Modify these variables
-    private String oAuthtoken = "ca9d6e6994f34142724aba4232bf9b4ec0ac26fa48aa7df5d29c81486bb3fb60";
-    private String subdomain = "zccahass";
+    private String oAuthtoken = "";
+    private String subdomain = "";
 
     /**
      * @return returns all the tickets for the user's account
@@ -26,11 +26,13 @@ public class RequestTickets {
 
         // Create HTTP request object
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://" + subdomain + ".zendesk.com/api/v2/tickets.json")).GET()
+                .uri(URI.create("https://" + subdomain
+                        + ".zendesk.com/api/v2/incremental/tickets/cursor.json?start_time=0000000000"))
+                .GET()
                 .header("Authorization", "Bearer " + oAuthtoken).header("Content-Type", "application/json").build();
         JSONObject tickets = new JSONObject();
 
-        // use the client to send the request
+        // use the client to send the requests
         try {
             var response = client.send(request, HttpResponse.BodyHandlers.ofString());
             // store response in a JSONObject

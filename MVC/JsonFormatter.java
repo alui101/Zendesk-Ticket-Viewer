@@ -21,12 +21,7 @@ public class JsonFormatter {
      * @param numOfTickets number of tickets that user has on his account
      */
     public void printPage(JSONArray tickets, int page, int numOfTickets) {
-        if (page > numOfTickets / 25) {
-            System.out.println("Choose a valid page: from " + "1 to " + String.valueOf(numOfTickets / 25));
-            System.out.println();
-            return;
-        }
-        System.out.println(" ID  Status Priority           Subject              Time Created");
+        System.out.println("  ID  Status Priority           Subject              Time Created");
         // holds the index of the last ticket in the page
         int lastid = page * 25;
         if (lastid > numOfTickets)

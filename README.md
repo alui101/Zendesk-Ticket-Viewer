@@ -2,7 +2,7 @@
 Welcome to my ticket viewer! It is a CLI based viewer that connects to the Zendesk API.
 
 # Credentials
-This program takes advantage of System Variables so, make sure to add system variables called "SUBDOMAIN" & "OAUTHTOKEN" with your subdomain and oauth token respectively. For instructions on how to add system variables, please go to this link for Windows: http://www.dowdandassociates.com/blog/content/howto-set-an-environment-variable-in-windows-command-line-and-registry/ and go to this one for Mac: https://phoenixnap.com/kb/set-environment-variable-mac
+This program takes advantage of System Variables so, make sure to add system variables called "SUBDOMAIN" & "OAUTHTOKEN" with your subdomain and oauth token respectively. For instructions on how to add system variables, please go to this link for Windows: http://www.dowdandassociates.com/blog/content/howto-set-an-environment-variable-in-windows-command-line-and-registry/ and go to this one for Mac: https://phoenixnap.com/kb/set-environment-variable-mac (If the system Variables are not loading in, restart the IDE and that should fix it)
 
 # Requirements:  
 - The easiest option to run the program is to download vscode and follow the instructions on this website: https://code.visualstudio.com/docs/java/java-tutorial. Then download the libraries used(Referenced Below) and add them to your referenced libraries. <br />

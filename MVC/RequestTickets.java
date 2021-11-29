@@ -14,20 +14,17 @@ import java.net.URI;
  */
 public class RequestTickets {
 
-    private String subDomain = System.getenv("SUBDOMAIN");
-    private String oAuthtoken = System.getenv("OAUTHTOKEN");
-
     /**
      * @return returns all the tickets for the user's account
      */
-    public JSONObject getAllTickets() {
+    public JSONObject getAllTickets(String subDomain, String oAuthToken) {
         HttpClient client = HttpClient.newHttpClient();
         // Create HTTP request object
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://" + subDomain
                         + ".zendesk.com/api/v2/incremental/tickets/cursor.json?start_time=0000000000"))
                 .GET()
-                .header("Authorization", "Bearer " + oAuthtoken).header("Content-Type", "application/json").build();
+                .header("Authorization", "Bearer " + oAuthToken).header("Content-Type", "application/json").build();
         JSONObject tickets = new JSONObject();
 
         // use the client to send the requests
@@ -47,6 +44,10 @@ public class RequestTickets {
         } catch (IOException | InterruptedException e) {
             System.out.println("Error occured during reading the data or thread is interrupted");
         }
+        if (tickets == null) {
+            System.out.println("Invalid credentials entered, please double check them and try again.");
+        }
+
         return tickets;
     }
 
@@ -54,14 +55,15 @@ public class RequestTickets {
      * @param id - id of ticket user wants to view
      * @return the ticket corresponding to the id
      */
-    public JSONObject getTicket(int id) {
+    public JSONObject getTicket(int id, String subDomain, String oAuthToken) {
         HttpClient client = HttpClient.newHttpClient();
         JSONObject tickets = new JSONObject();
 
         // Create HTTP request object
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://" + subDomain + ".zendesk.com/api/v2/tickets/" + String.valueOf(id) + ".json"))
-                .GET().header("Authorization", "Bearer " + oAuthtoken).header("Content-Type", "application/json")
+                .uri(URI.create(
+                        "https://" + subDomain + ".zendesk.com/api/v2/tickets/" + String.valueOf(id) + ".json"))
+                .GET().header("Authorization", "Bearer " + oAuthToken).header("Content-Type", "application/json")
                 .build();
 
         // use the client to send the request
@@ -80,6 +82,9 @@ public class RequestTickets {
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("Error occured during reading data or thread is interrupted");
+        }
+        if (tickets == null) {
+            System.out.println("Invalid credentials or invalid id entered, please double check them and try again.");
         }
         return tickets;
     }

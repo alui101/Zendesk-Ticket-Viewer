@@ -10,6 +10,10 @@ import org.json.JSONException;
  * Controls the input and the output for the user
  */
 public class Controller {
+    // System variables to prevent leaks
+    private static String subDomain = System.getenv("SUBDOMAIN");
+    private static String oAuthToken = System.getenv("OAUTHTOKEN");
+
     public static void main(String[] args) {
         RequestTickets tickets = new RequestTickets();
         JsonFormatter formatter = new JsonFormatter();
@@ -31,14 +35,14 @@ public class Controller {
             if (optionSelected == 1) {
                 try {
                     // If we are unable to request the tickets let user know and quit
-                    if (tickets.getAllTickets() == null) {
+                    if (tickets.getAllTickets(subDomain, oAuthToken) == null) {
                         System.out.println(
                                 "Error: Unable to request tickets, please make sure the url and the credentials entered are valid.");
                         sc.close();
                         return;
                     }
                     JSONArray arrTickets = new JSONArray();
-                    arrTickets = tickets.getAllTickets().getJSONArray("tickets");
+                    arrTickets = tickets.getAllTickets(subDomain, oAuthToken).getJSONArray("tickets");
                     // if user does not have any tickets on their account then simply let them know
                     // and quit.
                     if (arrTickets.length() <= 0) {
@@ -89,15 +93,9 @@ public class Controller {
                     sc.nextLine();
                 }
 
-                try {
-                    System.out.println();
-                    if (!invalidTicketId)
-                        formatter.printFullTicket(
-                                tickets.getAllTickets().getJSONArray("tickets").getJSONObject(optionSelected - 1));
-                } catch (JSONException e) {
-                    System.out.println("Error occured when loading ticket. Make sure the id is valid");
-                    ticketError = true;
-                }
+                System.out.println();
+                if (!invalidTicketId)
+                    formatter.printFullTicket(tickets.getTicket(optionSelected, subDomain, oAuthToken));
                 if (!ticketError) {
                     System.out.println("Please enter: \n1 to go back\n2 to quit\n");
                     try {
@@ -113,7 +111,7 @@ public class Controller {
                 // go back to page if user chooses so
                 if (optionSelected == 1) {
                     try {
-                        arrTickets = tickets.getAllTickets().getJSONArray("tickets");
+                        arrTickets = tickets.getAllTickets(subDomain, oAuthToken).getJSONArray("tickets");
                     } catch (JSONException e1) {
                         System.out.println("Error: Unable to load tickets.");
                         sc.close();
@@ -147,7 +145,7 @@ public class Controller {
                 }
                 try {
                     System.out.println();
-                    numOfTickets = tickets.getAllTickets().getJSONArray("tickets").length();
+                    numOfTickets = tickets.getAllTickets(subDomain, oAuthToken).getJSONArray("tickets").length();
                     // If page entered is invalid let user know
                     if (page > numOfTickets / 25 + 1) {
                         System.out.println("Page number chosen is invalid, going back to main menu. Valid pages: from "
@@ -155,7 +153,7 @@ public class Controller {
                                 + String.valueOf(numOfTickets / 25 + 1));
                         System.out.println();
                     } else
-                        formatter.printPage(tickets.getAllTickets().getJSONArray("tickets"), page,
+                        formatter.printPage(tickets.getAllTickets(subDomain, oAuthToken).getJSONArray("tickets"), page,
                                 numOfTickets);
                 } catch (JSONException e) {
                     System.out.println("Error occured when changing pages.");

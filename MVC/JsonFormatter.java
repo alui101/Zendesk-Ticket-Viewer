@@ -20,10 +20,10 @@ public class JsonFormatter {
      * @param page         page number user is on
      * @param numOfTickets number of tickets that user has on his account
      */
-    public void printPage(JSONArray tickets, int page, int numOfTickets) {
+    public void printPage(JSONArray tickets, int page, double numOfTickets) {
         System.out.println("  ID  Status Priority           Subject              Time Created");
         // holds the index of the last ticket in the page
-        int lastid = page * 25;
+        double lastid = page * 25;
         if (lastid > numOfTickets)
             lastid = numOfTickets;
 
@@ -32,18 +32,13 @@ public class JsonFormatter {
 
         // prints the tickets in a list view
         for (int i = firstId; i < lastid; i++) {
-            printLine();
+            System.out.println("______________________________________________________________________________");
             try {
                 printTicket(tickets.getJSONObject(i));
             } catch (JSONException e) {
                 System.out.println("Error occured when trying to print tickets");
             }
         }
-    }
-
-    // Helper method to print a line
-    private void printLine() {
-        System.out.println("______________________________________________________________________________");
     }
 
     /**

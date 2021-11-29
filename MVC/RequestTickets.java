@@ -86,6 +86,10 @@ public class RequestTickets {
         if (tickets == null) {
             System.out.println("Invalid credentials or invalid id entered, please double check them and try again.");
         }
-        return tickets;
+        try {
+            return tickets.getJSONObject("ticket");
+        } catch (JSONException | NullPointerException e) {
+        }
+        return null;
     }
 }

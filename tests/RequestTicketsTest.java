@@ -28,13 +28,18 @@ public class RequestTicketsTest {
     }
 
     @Test
-    public void getTicket_PriorityTest() throws JSONException {
+    public void getAllTicket_PriorityTest() throws JSONException {
         assertEquals("normal", request.getAllTickets(subDomain, oAuthToken).getJSONArray("tickets").getJSONObject(0)
                 .getString("priority"));
     }
 
     @Test
-    public void getTicket_StatusTest() throws JSONException {
+    public void getTicket_PriorityTest() throws JSONException {
+        assertEquals("normal", request.getTicket(1, subDomain, oAuthToken).getString("priority"));
+    }
+
+    @Test
+    public void getAllTicket_StatusTest() throws JSONException {
         assertEquals("open", request.getAllTickets(subDomain, oAuthToken).getJSONArray("tickets").getJSONObject(0)
                 .getString("status"));
         assertEquals("open", request.getAllTickets(subDomain, oAuthToken).getJSONArray("tickets").getJSONObject(1)
@@ -44,7 +49,7 @@ public class RequestTicketsTest {
     }
 
     @Test
-    public void getTicket_IDTest() throws JSONException {
+    public void getAllTicket_IDTest() throws JSONException {
         assertEquals("1",
                 request.getAllTickets(subDomain, oAuthToken).getJSONArray("tickets").getJSONObject(0).getString("id"));
         assertEquals("2",

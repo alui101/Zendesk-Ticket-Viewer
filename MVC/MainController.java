@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Controls the input and the output for the user
@@ -94,8 +95,9 @@ public class MainController {
                 }
 
                 System.out.println();
-                if (!invalidTicketId)
-                    formatter.printFullTicket(tickets.getTicket(optionSelected, subDomain, oAuthToken));
+                JSONObject ticket = tickets.getTicket(optionSelected, subDomain, oAuthToken);
+                if (!invalidTicketId && ticket != null)
+                    formatter.printFullTicket(ticket);
                 if (!ticketError) {
                     System.out.println("Please enter: \n1 to go back\n2 to quit\n");
                     try {
@@ -134,7 +136,7 @@ public class MainController {
                 // if user wants to view another page then load that specific page
             } else if (optionSelected == 3) {
                 int oldPageNum = page;
-                int numOfTickets = 0;
+                double numOfTickets = 0;
                 System.out.println("Select page number:");
                 try {
                     page = sc.nextInt();
@@ -147,10 +149,14 @@ public class MainController {
                     System.out.println();
                     numOfTickets = tickets.getAllTickets(subDomain, oAuthToken).getJSONArray("tickets").length();
                     // If page entered is invalid let user know
-                    if (page > numOfTickets / 25 + 1) {
+                    if ((page > numOfTickets / 25 + 1 && numOfTickets % 1 != 0)
+                            || (page > numOfTickets / 25 && numOfTickets % 1 == 0)) {
+                        String id = String.valueOf(numOfTickets / 25 + 1);
+                        if (numOfTickets % 1 == 0)
+                            id = String.valueOf((int) numOfTickets / 25);
                         System.out.println("Page number chosen is invalid, going back to main menu. Valid pages: from "
                                 + "1 to "
-                                + String.valueOf(numOfTickets / 25 + 1));
+                                + id);
                         System.out.println();
                     } else
                         formatter.printPage(tickets.getAllTickets(subDomain, oAuthToken).getJSONArray("tickets"), page,

@@ -46,7 +46,11 @@ public class JsonFormatter {
         System.out.println("______________________________________________________________________________");
     }
 
-    // Helper method to print ticket info in list form
+    /**
+     * Helper method that prints a ticket with minimal information.
+     * 
+     * @param ticket ticket being printed
+     */
     private void printTicket(JSONObject ticket) {
         try {
             System.out.print("| " + ticket.getString("id") + " |");
@@ -82,8 +86,9 @@ public class JsonFormatter {
     }
 
     /**
+     * Prints an indivisual ticket with extra details
      * 
-     * @param ticket
+     * @param ticket ticket being printed
      */
     public void printFullTicket(JSONObject ticket) {
         String id = "";

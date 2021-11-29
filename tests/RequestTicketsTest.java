@@ -2,7 +2,6 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import org.json.JSONException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,6 +9,9 @@ import org.junit.contrib.java.lang.system.SystemOutRule;
 
 import MVC.RequestTickets;
 
+/**
+ * Does basic testing on the RequestTickets class
+ */
 public class RequestTicketsTest {
     private String subDomain = System.getenv("SUBDOMAIN");
     private String oAuthToken = System.getenv("OAUTHTOKEN");

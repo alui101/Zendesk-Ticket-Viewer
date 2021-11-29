@@ -2,14 +2,14 @@ package MVC;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
  * Controls the input and the output for the user
  */
-public class Controller {
+public class MainController {
+
     // System variables to prevent leaks
     private static String subDomain = System.getenv("SUBDOMAIN");
     private static String oAuthToken = System.getenv("OAUTHTOKEN");

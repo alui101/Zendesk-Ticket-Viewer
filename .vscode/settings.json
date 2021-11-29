@@ -1,8 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "c:\\Users\\alui1\\Documents\\Qt\\a8-sprite-editor-f21-ike091\\icons\\org.json.jar\\org.json.jar",
-        "c:\\Users\\alui1\\Documents\\Qt\\a8-sprite-editor-f21-ike091\\icons\\junit-platform-console-standalone-1.7.0-M1.jar",
-        "c:\\Users\\alui1\\Documents\\Qt\\a8-sprite-editor-f21-ike091\\icons\\jar_files systemrules\\system-rules-1.16.0.jar"
-    ]
-}

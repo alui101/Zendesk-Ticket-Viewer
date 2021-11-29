@@ -90,6 +90,7 @@ public class Controller {
                 }
 
                 try {
+                    System.out.println();
                     if (!invalidTicketId)
                         formatter.printFullTicket(
                                 tickets.getAllTickets().getJSONArray("tickets").getJSONObject(optionSelected - 1));
@@ -145,6 +146,7 @@ public class Controller {
                     sc.nextLine();
                 }
                 try {
+                    System.out.println();
                     numOfTickets = tickets.getAllTickets().getJSONArray("tickets").length();
                     // If page entered is invalid let user know
                     if (page > numOfTickets / 25 + 1) {

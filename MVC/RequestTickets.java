@@ -14,19 +14,17 @@ import java.net.URI;
  */
 public class RequestTickets {
 
-    // Modify these variables
-    private String oAuthtoken = "";
-    private String subdomain = "";
+    private String subDomain = System.getenv("SUBDOMAIN");
+    private String oAuthtoken = System.getenv("OAUTHTOKEN");
 
     /**
      * @return returns all the tickets for the user's account
      */
     public JSONObject getAllTickets() {
         HttpClient client = HttpClient.newHttpClient();
-
         // Create HTTP request object
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://" + subdomain
+                .uri(URI.create("https://" + subDomain
                         + ".zendesk.com/api/v2/incremental/tickets/cursor.json?start_time=0000000000"))
                 .GET()
                 .header("Authorization", "Bearer " + oAuthtoken).header("Content-Type", "application/json").build();
@@ -62,7 +60,7 @@ public class RequestTickets {
 
         // Create HTTP request object
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://" + subdomain + ".zendesk.com/api/v2/tickets/" + String.valueOf(id) + ".json"))
+                .uri(URI.create("https://" + subDomain + ".zendesk.com/api/v2/tickets/" + String.valueOf(id) + ".json"))
                 .GET().header("Authorization", "Bearer " + oAuthtoken).header("Content-Type", "application/json")
                 .build();
 
